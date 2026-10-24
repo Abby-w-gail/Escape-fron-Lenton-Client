@@ -1,5 +1,6 @@
 #connection-setup {
     font-family: Arial;
+    color: white;
     font-weight: bold; 
     display: flex;
     justify-content: center;
@@ -8,10 +9,11 @@
 
 #ip {
     margin-left: 5px; 
+
 }
 
 h1 { 
-    color: green;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,8 +21,23 @@ h1 {
     font-family: sans; 
 }
 
-
-
 #button {
     margin-left : 5px;
+}
+
+#controls {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    gap: 10px;
+    grid-auto-rows: minmax(25px, auto);
+}
+
+body {
+    background: #018281;
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
 }
