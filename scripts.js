@@ -42,6 +42,15 @@ function test(){
         socket.send("Coming from browser in unsecure context");
         socket.send(secureContext)
     }
+    navigator.permissions.query({name: "gyroscope"}).then((result) => {
+    if (result.state === "denied") {
+            console.log("Permission to use gyroscope sensor is denied.");
+            socket.send("no gyroscope :(");
+            return;
+            
+            }
+        // Use the sensor.
+        });}
     //if(gyroscopeExists = 1){
     //    socket.send("Gyroscope exists");
     //}else{
