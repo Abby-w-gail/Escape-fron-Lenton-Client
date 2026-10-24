@@ -34,20 +34,8 @@ function failedgyro(WebSocket){
     console.log("Gyroscope query failed");
     socket.send("Gyro failed :<");
 }
-
-
-function test(){
-    console.log("test");
-    socket.send("Test");
-    socket.send("1");
-    if(window.isSecureContext){
-        socket.send("Coming from browser in secure context");
-    }else{
-        socket.send("Coming from browser in unsecure context");
-        socket.send(secureContext)
-    }
-    navigator.permissions.query({name: "gyroscope"}).then((result) => {
-        if (result.state === "denied") {
+function passedgyro(PermissionStatus){
+    if (result.state === "denied") {
                 console.log("Permission to use gyroscope sensor is denied.");
                 socket.send("no gyroscope :(");
                 
@@ -64,8 +52,19 @@ function test(){
             console.log("Gyroscope error");
             socket.send("Gyroscope unknown :3");
         }
-        }, failedgyro(socket)
-    );
+}
+
+async function test(){
+    await navigator.permissions.query({name: "gyroscope"}).then((result) => {passedgyro(result)}, failedgyro(socket));
+    console.log("test");
+    socket.send("Test");
+    socket.send("1");
+    if(window.isSecureContext){
+        socket.send("Coming from browser in secure context");
+    }else{
+        socket.send("Coming from browser in unsecure context");
+        socket.send(secureContext)
+    }
     //if(gyroscopeExists = 1){
     //    socket.send("Gyroscope exists");
     //}else{
