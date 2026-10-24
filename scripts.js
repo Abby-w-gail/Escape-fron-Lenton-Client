@@ -1,6 +1,6 @@
 const ip_addr = document.getElementById("ip");
 var socket;
-//var gyroscope;
+var gyroscope;
 var secureContext = 0;
 //var gyroscopeExists;
 if (window.isSecureContext) {
@@ -43,6 +43,7 @@ function passedgyro(PermissionStatus){
         else if (result.state === "granted"){
             console.log("Permission to use gyroscope sensor exists");
             socket.send("yes gyroscope :)");
+            setupgyro();
         }
         else if (result.state === "prompt"){
             console.log("Permission to use gyroscope sensor needs to be granted");
@@ -53,11 +54,22 @@ function passedgyro(PermissionStatus){
             socket.send("Gyroscope unknown :3");
         }
 }
+async function setupgyro(){
+    gyroscope = new Gyroscope({frequency: 60});
+    gyroscope.addEventListener("reading", (e) => {
+        console.log(`Angular velocity along the X-axis ${gyroscope.x}`);
+        console.log(`Angular velocity along the Y-axis ${gyroscope.y}`);
+        console.log(`Angular velocity along the Z-axis ${gyroscope.z}`);
+        socket.send(`Angular velocity along the X-axis ${gyroscope.x}`);
+        socket.send(`Angular velocity along the Y-axis ${gyroscope.y}`);
+        socket.send(`Angular velocity along the Z-axis ${gyroscope.z}`);
+    });
+}
 
 async function test(){
-    console.log("beginning await");
+    //console.log("beginning await");
     result = await navigator.permissions.query({name: "gyroscope"});
-    console.log("done await, starting if/else");
+    //console.log("done await, starting if/else");
     if(result){
         console.log("if true, running command");
         passedgyro(result);
@@ -65,7 +77,7 @@ async function test(){
         console.log("else true, running command");
         failedgyro(socket);
     }
-    console.log("if/else block done");
+    //console.log("if/else block done");
     console.log("test");
     socket.send("Test");
     socket.send("1");
