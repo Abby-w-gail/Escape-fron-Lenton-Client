@@ -55,12 +55,17 @@ function passedgyro(PermissionStatus){
 }
 
 async function test(){
+    console.log("beginning await");
     result = await navigator.permissions.query({name: "gyroscope"});
+    console.log("done await, starting if/else");
     if(result){
+        console.log("if true, running command");
         passedgyro(result);
     }else{
+        console.log("else true, running command");
         failedgyro(socket);
     }
+    console.log("if/else block done");
     console.log("test");
     socket.send("Test");
     socket.send("1");
