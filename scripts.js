@@ -30,6 +30,11 @@ function submit() {
 //         socket.send("Hello Server!");
 //     });
 
+function failedgyro(WebSocket){
+    console.log("Gyroscope query failed");
+    socket.send("Gyro failed :<");
+}
+
 
 function test(){
     console.log("test");
@@ -59,7 +64,7 @@ function test(){
             console.log("Gyroscope error");
             socket.send("Gyroscope unknown :3");
         }
-        }
+        }, failedgyro(socket)
     );
     //if(gyroscopeExists = 1){
     //    socket.send("Gyroscope exists");
