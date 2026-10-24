@@ -2,6 +2,7 @@ const ip_addr = document.getElementById("ip");
 var socket;
 var gyroscope;
 var secureContext = 0;
+var gyroPermsYes = 0;
 //var gyroscopeExists;
 if (window.isSecureContext) {
   // Page is a secure context so service workers are now available
@@ -43,7 +44,7 @@ function passedgyro(PermissionStatus){
         else if (result.state === "granted"){
             console.log("Permission to use gyroscope sensor exists");
             socket.send("yes gyroscope :)");
-            setupgyro();
+            gyroPermsYes = 1;
         }
         else if (result.state === "prompt"){
             console.log("Permission to use gyroscope sensor needs to be granted");
@@ -56,6 +57,7 @@ function passedgyro(PermissionStatus){
 }
 async function setupgyro(){
     gyroscope = new Gyroscope({frequency: 60});
+    console.log("setting up gyroscope event listener...");
     gyroscope.addEventListener("reading", (e) => {
         console.log(`Angular velocity along the X-axis ${gyroscope.x}`);
         console.log(`Angular velocity along the Y-axis ${gyroscope.y}`);
@@ -64,6 +66,7 @@ async function setupgyro(){
         socket.send(`Angular velocity along the Y-axis ${gyroscope.y}`);
         socket.send(`Angular velocity along the Z-axis ${gyroscope.z}`);
     });
+    console.log("set up gyroscope event listener");
 }
 
 async function test(){
@@ -76,6 +79,10 @@ async function test(){
     }else{
         console.log("else true, running command");
         failedgyro(socket);
+    }
+    if(gyroPermsYes == 1){
+        socket.send()
+        setupgyro();
     }
     //console.log("if/else block done");
     console.log("test");
