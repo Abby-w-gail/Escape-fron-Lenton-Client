@@ -60,12 +60,9 @@ async function setupgyro(){
     console.log("setting up gyroscope event listener...");
     gyroscope.start();
     await gyroscope.addEventListener("reading", (e) => {
-        console.log(`Angular velocity along the X-axis ${gyroscope.x}`);
-        console.log(`Angular velocity along the Y-axis ${gyroscope.y}`);
-        console.log(`Angular velocity along the Z-axis ${gyroscope.z}`);
-        socket.send(`Angular velocity along the X-axis ${gyroscope.x}`);
-        socket.send(`Angular velocity along the Y-axis ${gyroscope.y}`);
-        socket.send(`Angular velocity along the Z-axis ${gyroscope.z}`);
+        console.log(gyroscope.x);
+        console.log(gyroscope.y);
+        console.log(gyroscope.z);
     });
     console.log("set up gyroscope event listener");
 }
