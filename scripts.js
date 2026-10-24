@@ -58,6 +58,7 @@ function passedgyro(PermissionStatus){
 async function setupgyro(){
     gyroscope = new Gyroscope({frequency: 60});
     console.log("setting up gyroscope event listener...");
+    gyroscope.start();
     await gyroscope.addEventListener("reading", (e) => {
         console.log(`Angular velocity along the X-axis ${gyroscope.x}`);
         console.log(`Angular velocity along the Y-axis ${gyroscope.y}`);
