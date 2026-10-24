@@ -81,7 +81,7 @@ async function test(){
         failedgyro(socket);
     }
     if(gyroPermsYes == 1){
-        socket.send()
+        socket.send("gyro perms exist, setting up gyroscope");
         setupgyro();
     }
     //console.log("if/else block done");
