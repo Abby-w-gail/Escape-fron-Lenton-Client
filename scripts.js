@@ -50,7 +50,7 @@ function test(){
             
             }
         // Use the sensor.
-        });}
+        });
     //if(gyroscopeExists = 1){
     //    socket.send("Gyroscope exists");
     //}else{
