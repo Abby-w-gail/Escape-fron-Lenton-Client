@@ -14,7 +14,6 @@ if (window.isSecureContext) {
   navigator.permissions.query({name: "gyroscope"}).then((result) => {
   if (result.state === "denied") {
         console.log("Permission to use gyroscope sensor is denied.");
-        return;
         }
     // Use the sensor.
     });}
@@ -43,14 +42,25 @@ function test(){
         socket.send(secureContext)
     }
     navigator.permissions.query({name: "gyroscope"}).then((result) => {
-    if (result.state === "denied") {
-            console.log("Permission to use gyroscope sensor is denied.");
-            socket.send("no gyroscope :(");
-            return;
-            
+        if (result.state === "denied") {
+                console.log("Permission to use gyroscope sensor is denied.");
+                socket.send("no gyroscope :(");
+                
             }
-        // Use the sensor.
-        });
+        else if (result.state === "granted"){
+            console.log("Permission to use gyroscope sensor exists");
+            socket.send("yes gyroscope :)");
+        }
+        else if (result.state === "prompt"){
+            console.log("Permission to use gyroscope sensor needs to be granted");
+            socket.send("gyroscope prompt :/");
+        }
+        else{
+            console.log("Gyroscope error");
+            socket.send("Gyroscope unknown :3");
+        }
+        }
+    );
     //if(gyroscopeExists = 1){
     //    socket.send("Gyroscope exists");
     //}else{
