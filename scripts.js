@@ -55,7 +55,12 @@ function passedgyro(PermissionStatus){
 }
 
 async function test(){
-    await navigator.permissions.query({name: "gyroscope"}).then((result) => {passedgyro(result)}, failedgyro(socket));
+    result = await navigator.permissions.query({name: "gyroscope"});
+    if(result){
+        passedgyro(result);
+    }else{
+        failedgyro(socket);
+    }
     console.log("test");
     socket.send("Test");
     socket.send("1");
