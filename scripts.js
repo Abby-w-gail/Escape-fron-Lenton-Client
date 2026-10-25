@@ -99,3 +99,7 @@ async function test(){
     //}
 };button
 
+function shoot(){
+    console.log("Shot fired");
+    socket.send("Shoot");
+}
